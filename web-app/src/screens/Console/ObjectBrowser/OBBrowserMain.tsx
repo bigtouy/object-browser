@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -83,7 +83,7 @@ const OBBrowserMain = () => {
 
   return (
     <Fragment>
-      <PageHeaderWrapper label={"Object Browser"} actions={<HelpMenu />} />
+      <PageHeaderWrapper label={t("Object Browser")} actions={<HelpMenu />} />
       <PageLayout>
         {loading && <ProgressBar />}
         {!loading && (
@@ -109,12 +109,13 @@ const OBBrowserMain = () => {
               <Grid item xs={8}>
                 <HelpBox
                   iconComponent={<BucketsIcon />}
-                  title={"Buckets"}
+                  title={t("Buckets")}
                   help={
                     <Fragment>
-                      MinIO uses buckets to organize objects. A bucket is
-                      similar to a folder or directory in a filesystem, where
-                      each bucket can hold an arbitrary number of objects.
+                      {t(
+                        "MinIO uses buckets to organize objects. A bucket is similar to a folder or directory in a filesystem, where each bucket can hold an arbitrary number of objects.",
+                      )}
+
                       <br />
                       {canListBuckets ? (
                         ""
@@ -126,6 +127,7 @@ const OBBrowserMain = () => {
                               IAM_SCOPES.S3_LIST_BUCKET,
                               IAM_SCOPES.S3_ALL_LIST_BUCKET,
                             ],
+
                             "view the buckets on this server",
                           )}
                           <br />
@@ -136,13 +138,14 @@ const OBBrowserMain = () => {
                         resource={CONSOLE_UI_RESOURCE}
                       >
                         <br />
-                        To get started,&nbsp;
+                        {t("To get started,")}
+
                         <ActionLink
                           onClick={() => {
                             dispatch(setAddBucketOpen(true));
                           }}
                         >
-                          Create a Bucket.
+                          {t("Create a Bucket.")}
                         </ActionLink>
                       </SecureComponent>
                     </Fragment>

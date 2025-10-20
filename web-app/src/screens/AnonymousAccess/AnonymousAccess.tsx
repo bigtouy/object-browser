@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, Suspense } from "react";
 import { ApplicationLogo, Button } from "mds";
 import { Route, Routes } from "react-router-dom";
@@ -35,21 +35,21 @@ const AnonymousAccess = () => {
       <div
         style={{
           background:
-            "linear-gradient(90deg, rgba(16,47,81,1) 0%, rgba(13,28,64,1) 100%)",
+          "linear-gradient(90deg, rgba(16,47,81,1) 0%, rgba(13,28,64,1) 100%)",
           height: 100,
           width: "100%",
           alignItems: "center",
           display: "flex",
           paddingLeft: 16,
-          paddingRight: 16,
-        }}
-      >
+          paddingRight: 16
+        }}>
+
         <div style={{ width: 200, flexShrink: 1 }}>
           <ApplicationLogo
             applicationName={getLogoApplicationVariant()}
             subVariant={getLogoVar()}
-            inverse={true}
-          />
+            inverse={true} />
+
         </div>
         <div style={{ flexGrow: 1 }}></div>
         <div style={{ flexShrink: 1, display: "flex", flexDirection: "row" }}>
@@ -60,9 +60,9 @@ const AnonymousAccess = () => {
               dispatch(resetSession());
               dispatch(resetSystem());
             }}
-            sx={{ color: "white", textTransform: "initial" }}
-          >
-            Login
+            sx={{ color: "white", textTransform: "initial" }}>{t("Login")}
+
+
           </Button>
           <ObjectManagerButton />
         </div>
@@ -75,13 +75,13 @@ const AnonymousAccess = () => {
         <Route
           path={`${IAM_PAGES.OBJECT_BROWSER_VIEW}/*`}
           element={
-            <Suspense fallback={<LoadingComponent />}>
+          <Suspense fallback={<LoadingComponent />}>
               <ObjectBrowser />
             </Suspense>
-          }
-        />
+          } />
+
       </Routes>
-    </Fragment>
-  );
+    </Fragment>);
+
 };
 export default AnonymousAccess;

@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React from "react";
 import { setSearchObjects } from "./objectBrowserSlice";
 import SearchBox from "../Common/SearchBox";
@@ -24,16 +24,16 @@ const FilterObjectsSB = () => {
   const dispatch = useAppDispatch();
 
   const searchObjects = useSelector(
-    (state: AppState) => state.objectBrowser.searchObjects,
+    (state: AppState) => state.objectBrowser.searchObjects
   );
   return (
     <SearchBox
-      placeholder={"Start typing to filter objects in the bucket"}
+      placeholder={t("Start typing to filter objects in the bucket")}
       onChange={(value) => {
         dispatch(setSearchObjects(value));
       }}
-      value={searchObjects}
-    />
-  );
+      value={searchObjects} />);
+
+
 };
 export default FilterObjectsSB;

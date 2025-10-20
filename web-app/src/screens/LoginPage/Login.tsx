@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Loader, LoginWrapper, RefreshIcon } from "mds";
@@ -108,9 +108,10 @@ const Login = () => {
             <Fragment>
               <Box>
                 <p style={{ textAlign: "center" }}>
-                  An error has occurred
+                  {t("An error has occurred")}
+
                   <br />
-                  The backend cannot be reached.
+                  {t("The backend cannot be reached.")}
                 </p>
               </Box>
               <div className={"buttonRetry"}>
@@ -122,7 +123,7 @@ const Login = () => {
                   iconLocation={"end"}
                   variant="regular"
                   id="retry"
-                  label={"Retry"}
+                  label={t("Retry")}
                 />
               </div>
             </Fragment>
@@ -158,7 +159,7 @@ const Login = () => {
             }}
           >
             <a href={docsURL} target="_blank" rel="noopener">
-              Documentation
+              {t("Documentation")}
             </a>
             <span className={"separator"}>|</span>
             <a
@@ -166,7 +167,7 @@ const Login = () => {
               target="_blank"
               rel="noopener"
             >
-              GitHub
+              {t("GitHub")}
             </a>
             <span className={"separator"}>|</span>
             <a
@@ -174,7 +175,7 @@ const Login = () => {
               target="_blank"
               rel="noopener"
             >
-              Support
+              {t("Support")}
             </a>
             <span className={"separator"}>|</span>
             <a
@@ -182,22 +183,22 @@ const Login = () => {
               target="_blank"
               rel="noopener"
             >
-              Download
+              {t("Download")}
             </a>
           </Box>
         }
         promoHeader={
-          <span style={{ fontSize: 28 }}>High-Performance Object Store</span>
+          <span style={{ fontSize: 28 }}>
+            {t("High-Performance Object Store")}
+          </span>
         }
         promoInfo={
           <span style={{ fontSize: 14, lineHeight: 1 }}>
-            MinIO is a cloud-native object store built to run on any
-            infrastructure - public, private or edge clouds. Primary use cases
-            include data lakes, databases, AI/ML, SaaS applications and fast
-            backup & recovery. MinIO is dual licensed under GNU AGPL v3 and
-            commercial license. To learn more, visit{" "}
+            {t(
+              "MinIO is a cloud-native object store built to run on any infrastructure - public, private or edge clouds. Primary use cases include data lakes, databases, AI/ML, SaaS applications and fast backup & recovery. MinIO is dual licensed under GNU AGPL v3 and commercial license. To learn more, visit",
+            )}{" "}
             <a href={"https://min.io/?ref=con"} target="_blank" rel="noopener">
-              www.min.io
+              {t("www.min.io")}
             </a>
             .
           </span>

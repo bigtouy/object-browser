@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -39,9 +39,9 @@ const AddBucketModal = () => {
   const navigate = useNavigate();
 
   const validBucketCharacters = new RegExp(
-    `^[a-z0-9][a-z0-9\\.\\-]{1,61}[a-z0-9]$`,
+    t("^[a-z0-9][a-z0-9\\.\\-]{1,61}[a-z0-9]$"),
   );
-  const ipAddressFormat = new RegExp(`^(\\d+\\.){3}\\d+$`);
+  const ipAddressFormat = new RegExp(t("^(\\d+\\.){3}\\d+$"));
   const bucketName = useSelector((state: AppState) => state.addBucket.name);
   const isDirty = useSelector((state: AppState) => state.addBucket.isDirty);
   const [validationResult, setValidationResult] = useState<boolean[]>([]);
@@ -76,11 +76,13 @@ const AddBucketModal = () => {
         bucketName.includes("-.") ||
         bucketName.includes("..")
       ),
+
       !ipAddressFormat.test(bucketName),
       !bucketName.startsWith("xn--"),
       !bucketName.endsWith("-s3alias"),
       !records.includes(bucketName),
     ];
+
     setValidationResult(bucketNameErrors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bucketName, isDirty]);
@@ -136,7 +138,7 @@ const AddBucketModal = () => {
           dispatch(setAddBucketOpen(false));
         }}
         modalOpen={modalOpen}
-        title={"Create Bucket"}
+        title={t("Create Bucket")}
       >
         <FormLayout withBorders={false}>
           <form
@@ -165,8 +167,9 @@ const AddBucketModal = () => {
                 variant={"regular"}
                 className={"clearButton"}
                 onClick={resForm}
-                label={"Clear"}
+                label={t("Clear")}
               />
+
               <TooltipWrapper
                 tooltip={
                   invalidFields.length > 0 || !isDirty || hasErrors
@@ -185,7 +188,7 @@ const AddBucketModal = () => {
                     !isDirty ||
                     hasErrors
                   }
-                  label={"Create Bucket"}
+                  label={t("Create Bucket")}
                 />
               </TooltipWrapper>
             </Box>

@@ -20,17 +20,25 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import MainRouter from "./MainRouter";
 import StyleHandler from "./StyleHandler";
+import initI18n from "./i18n";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <StyleHandler>
-        <MainRouter />
-      </StyleHandler>
-    </Provider>
-  </React.StrictMode>,
-);
+initI18n
+  .catch((error) => {
+    // eslint-disable-next-line no-console
+    console.error("Failed to initialize i18n", error);
+  })
+  .finally(() => {
+    root.render(
+      <React.StrictMode>
+        <Provider store={store}>
+          <StyleHandler>
+            <MainRouter />
+          </StyleHandler>
+        </Provider>
+      </React.StrictMode>,
+    );
+  });

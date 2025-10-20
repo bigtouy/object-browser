@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import { BucketObjectItem } from "./ListObjects/types";
 import { removeTrace } from "../../../ObjectBrowser/transferManager";
 import { store } from "../../../../../store";
@@ -85,13 +85,14 @@ export const download = (
   const state = store.getState();
   const anonymousMode = state.system.anonymousMode;
 
-  let path = `${
-    window.location.origin
-  }${basename}api/v1/buckets/${encodeURIComponent(bucketName)}/objects/download?prefix=${encodeURIComponent(objectPath)}${
+  let path = `${window.location.origin}${
+    basename
+  }api/v1/buckets/${encodeURIComponent(bucketName)}/objects/download?prefix=${encodeURIComponent(objectPath)}${
     overrideFileName !== null && overrideFileName.trim() !== ""
       ? `&override_file_name=${encodeURIComponent(overrideFileName || "")}`
       : ""
   }`;
+
   if (versionID) {
     path = path.concat(`&version_id=${versionID}`);
   }
@@ -150,7 +151,7 @@ export const download = (
             return;
           }
         }
-        errorCallback(`Unexpected response, download incomplete.`);
+        errorCallback(t("Unexpected response, download incomplete."));
       }
     }
   };
@@ -238,6 +239,7 @@ const extensionPreview = (fileName: string): AllowedPreviews => {
     "png",
     "heic",
   ];
+
   const pdfExtensions = ["pdf"];
   const audioExtensions = ["wav", "mp3", "alac", "aiff", "dsd", "pcm"];
   const videoExtensions = [

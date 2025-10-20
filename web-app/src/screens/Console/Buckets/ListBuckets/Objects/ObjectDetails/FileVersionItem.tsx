@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React from "react";
 import { DateTime } from "luxon";
 import styled from "styled-components";
@@ -27,8 +27,8 @@ import {
   IconButton,
   Tooltip,
   Grid,
-  Checkbox,
-} from "mds";
+  Checkbox } from
+"mds";
 import { niceBytes } from "../../../../../../common/utils";
 import SpecificVersionPill from "./SpecificVersionPill";
 import { BucketObject } from "api/consoleApi";
@@ -59,7 +59,7 @@ const FileVersionStyled = styled.div(({ theme }) => {
       width: "2px",
       height: "calc(100% + 2px)",
       backgroundColor: get(theme, "borderColor", "#F8F8F8"),
-      left: "24px",
+      left: "24px"
     },
     "& .mainFileVersionItem": {
       borderBottom: `${get(theme, "borderColor", "#F8F8F8")} 1px solid`,
@@ -67,17 +67,17 @@ const FileVersionStyled = styled.div(({ theme }) => {
       margin: "0 0.5rem 0 2.5rem",
       cursor: "pointer",
       "&.deleted": {
-        color: "#868686",
-      },
+        color: "#868686"
+      }
     },
     "& .intermediateLayer": {
       margin: "0 1.5rem 0 1.5rem",
       "&:hover, &.selected": {
         backgroundColor: get(theme, "boxBackground", "#F8F8F8"),
         "& > div": {
-          borderBottomColor: get(theme, "boxBackground", "#F8F8F8"),
-        },
-      },
+          borderBottomColor: get(theme, "boxBackground", "#F8F8F8")
+        }
+      }
     },
     "& .versionContainer": {
       fontSize: 16,
@@ -89,14 +89,14 @@ const FileVersionStyled = styled.div(({ theme }) => {
         height: 18,
         minWidth: 18,
         minHeight: 18,
-        marginRight: 10,
-      },
+        marginRight: 10
+      }
     },
     "& .buttonContainer": {
       textAlign: "right",
       "& button": {
-        marginLeft: "1.5rem",
-      },
+        marginLeft: "1.5rem"
+      }
     },
     "& .versionID": {
       fontSize: "12px",
@@ -104,57 +104,57 @@ const FileVersionStyled = styled.div(({ theme }) => {
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
       maxWidth: "95%",
-      overflow: "hidden",
+      overflow: "hidden"
     },
     "& .versionData": {
       marginRight: "10px",
       fontSize: 12,
-      color: "#868686",
+      color: "#868686"
     },
     "@media (max-width: 600px)": {
       "& .buttonContainer": {
         "& button": {
-          marginLeft: "5px",
-        },
-      },
+          marginLeft: "5px"
+        }
+      }
     },
     "@media (max-width: 799px)": {
       "&:before": {
-        display: "none",
+        display: "none"
       },
       "& .mainFileVersionItem": {
         padding: "5px 0px",
-        margin: 0,
+        margin: 0
       },
       "& .intermediateLayer": {
         margin: 0,
         "&:hover, &.selected": {
           backgroundColor: "transparent",
           "& > div": {
-            borderBottomColor: get(theme, "boxBackground", "#F8F8F8"),
-          },
-        },
+            borderBottomColor: get(theme, "boxBackground", "#F8F8F8")
+          }
+        }
       },
       "& .versionContainer": {
         fontSize: 14,
         "& svg.min-icon": {
-          display: "none",
-        },
+          display: "none"
+        }
       },
       "& .versionData": {
         textOverflow: "ellipsis",
         maxWidth: "95%",
         overflow: "hidden",
-        whiteSpace: "nowrap",
+        whiteSpace: "nowrap"
       },
       "& .collapsableInfo": {
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column"
       },
       "& .versionItem": {
-        display: "none",
-      },
-    },
+        display: "none"
+      }
+    }
   };
 });
 
@@ -172,32 +172,32 @@ const FileVersionItem = ({
   globalClick,
   index,
   key,
-  style,
+  style
 }: IFileVersionItem) => {
   const disableButtons = versionInfo.is_delete_marker;
 
   const versionItemButtons = [
-    {
-      icon: <PreviewIcon />,
-      action: onPreview,
-      tooltip: "Preview",
-    },
-    {
-      icon: <DownloadIcon />,
-      action: onDownload,
-      tooltip: "Download this version",
-    },
-    {
-      icon: <ShareIcon />,
-      action: onShare,
-      tooltip: "Share this version",
-    },
-    {
-      icon: <RecoverIcon />,
-      action: onRestore,
-      tooltip: "Restore this version",
-    },
-  ];
+  {
+    icon: <PreviewIcon />,
+    action: onPreview,
+    tooltip: "Preview"
+  },
+  {
+    icon: <DownloadIcon />,
+    action: onDownload,
+    tooltip: "Download this version"
+  },
+  {
+    icon: <ShareIcon />,
+    action: onShare,
+    tooltip: "Share this version"
+  },
+  {
+    icon: <RecoverIcon />,
+    action: onRestore,
+    tooltip: "Restore this version"
+  }];
+
 
   let pill: "deleted" | "current" | "null" | null = null;
 
@@ -213,7 +213,7 @@ const FileVersionItem = ({
 
   if (versionInfo.last_modified) {
     lastModified = DateTime.fromISO(
-      versionInfo.last_modified,
+      versionInfo.last_modified
     ) as DateTime<true>;
   }
 
@@ -226,40 +226,40 @@ const FileVersionItem = ({
           globalClick(versionInfo);
         }}
         key={key}
-        style={style}
-      >
+        style={style}>
+
         <Grid
           item
           xs={12}
-          className={`${"intermediateLayer"} ${isSelected ? "selected" : ""}`}
-        >
+          className={`${"intermediateLayer"} ${isSelected ? "selected" : ""}`}>
+
           <Grid
             item
             xs
             className={`mainFileVersionItem ${
-              versionInfo.is_delete_marker ? "deleted" : ""
-            }`}
-          >
+            versionInfo.is_delete_marker ? "deleted" : ""}`
+            }>
+
             <Grid item xs={12}>
               <Grid container>
                 <Grid item xs md={4} className={"versionContainer"}>
-                  {checkable && (
-                    <Checkbox
-                      checked={isChecked}
-                      id={`select-${versionInfo.version_id}`}
-                      name={`select-${versionInfo.version_id}`}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        onCheck(versionInfo.version_id || "");
-                      }}
-                      value={versionInfo.version_id || ""}
-                      disabled={versionInfo.is_delete_marker}
-                      sx={{
-                        width: "initial",
-                      }}
-                    />
-                  )}
-                  {displayFileIconName(fileName, true)} v{index.toString()}
+                  {checkable &&
+                  <Checkbox
+                    checked={isChecked}
+                    id={`select-${versionInfo.version_id}`}
+                    name={`select-${versionInfo.version_id}`}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onCheck(versionInfo.version_id || "");
+                    }}
+                    value={versionInfo.version_id || ""}
+                    disabled={versionInfo.is_delete_marker}
+                    sx={{
+                      width: "initial"
+                    }} />
+
+                  }
+                  {displayFileIconName(fileName, true)}{t("v")}{index.toString()}
                   <span className={"versionItem"}>
                     {pill && <SpecificVersionPill type={pill} />}
                   </span>
@@ -270,17 +270,17 @@ const FileVersionItem = ({
                       <Tooltip
                         tooltip={button.tooltip}
                         key={`version-action-${
-                          button.tooltip
-                        }-${index.toString()}`}
-                      >
+                        button.tooltip}-${
+                        index.toString()}`}>
+
                         <IconButton
                           size={"small"}
                           id={`version-action-${
-                            button.tooltip
-                          }-${index.toString()}`}
+                          button.tooltip}-${
+                          index.toString()}`}
                           className={`${"spacing"} ${
-                            disableButtons ? "buttonDisabled" : ""
-                          }`}
+                          disableButtons ? "buttonDisabled" : ""}`
+                          }
                           disabled={disableButtons}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -298,14 +298,14 @@ const FileVersionItem = ({
                             padding: "5px",
                             "& .min-icon": {
                               width: "14px",
-                              height: "14px",
-                            },
-                          }}
-                        >
+                              height: "14px"
+                            }
+                          }}>
+
                           {button.icon}
                         </IconButton>
-                      </Tooltip>
-                    );
+                      </Tooltip>);
+
                   })}
                 </Grid>
               </Grid>
@@ -315,18 +315,18 @@ const FileVersionItem = ({
             </Grid>
             <Grid item xs={12} className={"collapsableInfo"}>
               <span className={"versionData"}>
-                <strong>Last modified:</strong>{" "}
+                <strong>{t("Last modified:")}</strong>{" "}
                 {lastModified.toFormat("ccc, LLL dd yyyy HH:mm:ss (ZZZZ)")}
               </span>
               <span className={"versionData"}>
-                <strong>Size:</strong> {niceBytes(`${versionInfo.size || "0"}`)}
+                <strong>{t("Size:")}</strong> {niceBytes(`${versionInfo.size || "0"}`)}
               </span>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </FileVersionStyled>
-  );
+    </FileVersionStyled>);
+
 };
 
 export default FileVersionItem;

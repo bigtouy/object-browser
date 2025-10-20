@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React from "react";
 import { PageLayout, Box } from "mds";
 import Copyright from "../common/Copyright";
@@ -29,33 +29,33 @@ const NotFound: React.FC = () => {
           height: "100%",
           textAlign: "center",
           margin: "auto",
-          flexFlow: "column",
-        }}
-      >
+          flexFlow: "column"
+        }}>
+
         <Box
           sx={{
             fontSize: "110%",
             margin: "0 0 0.25rem",
-            color: "#909090",
-          }}
-        >
-          404 Error
+            color: "#909090"
+          }}>{t("404 Error")}
+
+
         </Box>
         <Box
           sx={{
             fontStyle: "normal",
             fontSize: "clamp(2rem,calc(2rem + 1.2vw),3rem)",
-            fontWeight: 700,
-          }}
-        >
-          Sorry, the page could not be found.
+            fontWeight: 700
+          }}>{t("Sorry, the page could not be found.")}
+
+
         </Box>
         <Box sx={{ marginTop: 20 }}>
           <Copyright />
         </Box>
       </Box>
-    </PageLayout>
-  );
+    </PageLayout>);
+
 };
 
 export default NotFound;

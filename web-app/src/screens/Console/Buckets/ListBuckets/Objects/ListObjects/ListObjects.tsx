@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, {
   Fragment,
   useCallback,
@@ -434,7 +434,7 @@ const ListObjects = () => {
     setDeleteMultipleOpen(false);
 
     if (refresh) {
-      dispatch(setSnackBarMessage(`Objects deleted successfully.`));
+      dispatch(setSnackBarMessage(t("Objects deleted successfully.")));
       dispatch(setSelectedObjects([]));
       dispatch(setReloadObjectsList(true));
     }
@@ -819,7 +819,9 @@ const ListObjects = () => {
   const downloadToolTip =
     selectedObjects?.length <= 1
       ? "Download Selected"
-      : ` Download selected objects as Zip. Any Deleted objects in the selection would be skipped from download.`;
+      : t(
+          "Download selected objects as Zip. Any Deleted objects in the selection would be skipped from download.",
+        );
 
   const multiActionButtons = [
     {
@@ -973,7 +975,8 @@ const ListObjects = () => {
                   }}
                 >
                   <span className={"detailsSpacer"}>
-                    Created on:&nbsp;
+                    {t("Created on:")}
+
                     <strong>
                       {bucketInfo?.creation_date
                         ? createdTime.toFormat(
@@ -983,7 +986,8 @@ const ListObjects = () => {
                     </strong>
                   </span>
                   <span className={"detailsSpacer"}>
-                    Access:&nbsp;&nbsp;
+                    {t("Access:")}
+
                     <strong>{bucketInfo?.access || ""}</strong>
                   </span>
                   {bucketInfo && (
@@ -1001,7 +1005,8 @@ const ListObjects = () => {
                         {bucketInfo.size && bucketInfo.objects ? " - " : ""}
                         {bucketInfo.objects && (
                           <Fragment>
-                            {bucketInfo.objects}&nbsp;Object
+                            {bucketInfo.objects}
+                            {t("Object")}
                             {bucketInfo.objects && bucketInfo.objects !== 1
                               ? "s"
                               : ""}
@@ -1026,13 +1031,14 @@ const ListObjects = () => {
                               IAM_SCOPES.S3_GET_ACTIONS,
                               IAM_SCOPES.S3_GET_BUCKET_VERSIONING,
                             ],
+
                             "apply rewind in this bucket",
                           )
                     }
                   >
                     <Button
                       id={"rewind-objects-list"}
-                      label={"Rewind"}
+                      label={t("Rewind")}
                       icon={
                         <Badge color="alert" dotOnly invisible={!rewindEnabled}>
                           <HistoryIcon
@@ -1054,10 +1060,10 @@ const ListObjects = () => {
                     />
                   </TooltipWrapper>
                 )}
-                <TooltipWrapper tooltip={"Reload List"}>
+                <TooltipWrapper tooltip={t("Reload List")}>
                   <Button
                     id={"refresh-objects-list"}
-                    label={"Refresh"}
+                    label={t("Refresh")}
                     icon={<RefreshIcon />}
                     variant={"regular"}
                     onClick={() => {
@@ -1088,6 +1094,7 @@ const ListObjects = () => {
                   style={{ display: "none" }}
                   ref={fileUpload}
                 />
+
                 <input
                   type="file"
                   multiple
@@ -1095,6 +1102,7 @@ const ListObjects = () => {
                   style={{ display: "none" }}
                   ref={folderUpload}
                 />
+
                 <UploadFilesButton
                   bucketName={bucketName}
                   uploadPath={pathAsResourceInPolicy}
@@ -1183,7 +1191,7 @@ const ListObjects = () => {
                               name={"deleted_objects"}
                               id={"showDeletedObjects"}
                               value={"deleted_on"}
-                              label={"Show deleted objects"}
+                              label={t("Show deleted objects")}
                               onChange={setDeletedAction}
                               checked={showDeleted}
                               sx={{
@@ -1223,7 +1231,7 @@ const ListObjects = () => {
                   {selectedObjects.length > 0 && (
                     <ActionsList
                       items={multiActionButtons}
-                      title={"Selected Objects:"}
+                      title={t("Selected Objects:")}
                     />
                   )}
                   {selectedInternalPaths !== null && (

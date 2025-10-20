@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useState } from "react";
 import { ErrorResponseHandler } from "../../../../../../common/types";
 import ConfirmDialog from "../../../../Common/ModalWrapper/ConfirmDialog";
@@ -43,7 +43,7 @@ const DeleteObject = ({
   selectedBucket,
   selectedObject,
   versioningInfo,
-  selectedVersion = "",
+  selectedVersion = ""
 }: IDeleteObjectProps) => {
   const dispatch = useAppDispatch();
   const onDelSuccess = () => closeDeleteModalAndRefresh(true);
@@ -62,14 +62,14 @@ const DeleteObject = ({
   const [bypassGovernance, setBypassGovernance] = useState<boolean>(false);
 
   const retentionConfig = useSelector(
-    (state: AppState) => state.objectBrowser.retentionConfig,
+    (state: AppState) => state.objectBrowser.retentionConfig
   );
 
   const canBypass =
-    hasPermission(
-      [selectedBucket],
-      [IAM_SCOPES.S3_BYPASS_GOVERNANCE_RETENTION],
-    ) && retentionConfig?.mode === "governance";
+  hasPermission(
+    [selectedBucket],
+    [IAM_SCOPES.S3_BYPASS_GOVERNANCE_RETENTION]
+  ) && retentionConfig?.mode === "governance";
 
   if (!selectedObject) {
     return null;
@@ -79,16 +79,16 @@ const DeleteObject = ({
     invokeDeleteApi(
       "DELETE",
       `/api/v1/buckets/${encodeURIComponent(selectedBucket)}/objects?prefix=${encodeURIComponent(selectedObject)}${
-        selectedVersion !== ""
-          ? `&version_id=${encodeURIComponent(selectedVersion)}`
-          : `&recursive=${recursive}&all_versions=${deleteVersions}`
-      }${bypassGovernance ? "&bypass=true" : ""}`,
+      selectedVersion !== "" ?
+      `&version_id=${encodeURIComponent(selectedVersion)}` :
+      `&recursive=${recursive}&all_versions=${deleteVersions}`}${
+      bypassGovernance ? "&bypass=true" : ""}`
     );
   };
 
   return (
     <ConfirmDialog
-      title={`Delete Object`}
+      title={t("Delete Object")}
       confirmText={"Delete"}
       isOpen={deleteOpen}
       titleIcon={<ConfirmDeleteIcon />}
@@ -96,85 +96,85 @@ const DeleteObject = ({
       onConfirm={onConfirmDelete}
       onClose={onClose}
       confirmationContent={
-        <Fragment>
-          Are you sure you want to delete: <br />
+      <Fragment>{t("Are you sure you want to delete:")}
+        <br />
           <b>{selectedObject}</b>{" "}
-          {selectedVersion !== "" ? (
-            <Fragment>
+          {selectedVersion !== "" ?
+        <Fragment>
               <br />
-              <br />
-              Version ID:
-              <br />
+              <br />{t("Version ID:")}
+
+          <br />
               <strong>{selectedVersion}</strong>
-            </Fragment>
-          ) : (
-            ""
-          )}
+            </Fragment> :
+
+        ""
+        }
           ? <br />
           <br />
           {isVersionedMode(versioningInfo?.status) &&
-            selectedVersion === "" && (
-              <Fragment>
+        selectedVersion === "" &&
+        <Fragment>
                 <Switch
-                  label={"Delete All Versions"}
-                  indicatorLabels={["Yes", "No"]}
-                  checked={deleteVersions}
-                  value={"delete_versions"}
-                  id="delete-versions"
-                  name="delete-versions"
-                  onChange={(e) => {
-                    setDeleteVersions(!deleteVersions);
-                  }}
-                  description=""
-                />
+            label={t("Delete All Versions")}
+            indicatorLabels={["Yes", "No"]}
+            checked={deleteVersions}
+            value={"delete_versions"}
+            id="delete-versions"
+            name="delete-versions"
+            onChange={(e) => {
+              setDeleteVersions(!deleteVersions);
+            }}
+            description="" />
+
               </Fragment>
-            )}
-          {canBypass && (deleteVersions || selectedVersion !== "") && (
-            <Fragment>
+        }
+          {canBypass && (deleteVersions || selectedVersion !== "") &&
+        <Fragment>
               <div
-                style={{
-                  marginTop: 10,
-                }}
-              >
+            style={{
+              marginTop: 10
+            }}>
+
                 <Switch
-                  label={"Bypass Governance Mode"}
-                  indicatorLabels={["Yes", "No"]}
-                  checked={bypassGovernance}
-                  value={"bypass_governance"}
-                  id="bypass_governance"
-                  name="bypass_governance"
-                  onChange={(e) => {
-                    setBypassGovernance(!bypassGovernance);
-                  }}
-                  description=""
-                />
+              label={t("Bypass Governance Mode")}
+              indicatorLabels={["Yes", "No"]}
+              checked={bypassGovernance}
+              value={"bypass_governance"}
+              id="bypass_governance"
+              name="bypass_governance"
+              onChange={(e) => {
+                setBypassGovernance(!bypassGovernance);
+              }}
+              description="" />
+
               </div>
             </Fragment>
-          )}
-          {deleteVersions && (
-            <Fragment>
+        }
+          {deleteVersions &&
+        <Fragment>
               <div
-                style={{
-                  marginTop: 10,
-                  border: "#c83b51 1px solid",
-                  borderRadius: 3,
-                  padding: 5,
-                  backgroundColor: "#c83b5120",
-                  color: "#c83b51",
-                }}
-              >
-                This will remove the object as well as all of its versions,{" "}
-                <br />
-                This action is irreversible.
-              </div>
-              <br />
-              Are you sure you want to continue?
-            </Fragment>
-          )}
+            style={{
+              marginTop: 10,
+              border: "#c83b51 1px solid",
+              borderRadius: 3,
+              padding: 5,
+              backgroundColor: "#c83b5120",
+              color: "#c83b51"
+            }}>{t("This will remove the object as well as all of its versions,")}
+
+            {" "}
+                <br />{t("This action is irreversible.")}
+
+          </div>
+              <br />{t("Are you sure you want to continue?")}
+
         </Fragment>
-      }
-    />
-  );
+        }
+        </Fragment>
+      } />);
+
+
 };
 
 export default DeleteObject;

@@ -13,14 +13,14 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React from "react";
 import { InputBox } from "mds";
 import { useSelector } from "react-redux";
 import { setIsDirty, setName } from "./addBucketsSlice";
 import { AppState, useAppDispatch } from "../../../../../store";
 
-const AddBucketName = ({ hasErrors }: { hasErrors: boolean }) => {
+const AddBucketName = ({ hasErrors }: {hasErrors: boolean;}) => {
   const dispatch = useAppDispatch();
 
   const bucketName = useSelector((state: AppState) => state.addBucket.name);
@@ -35,11 +35,11 @@ const AddBucketName = ({ hasErrors }: { hasErrors: boolean }) => {
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setName(event.target.value));
       }}
-      label="Bucket Name"
+      label={t("Bucket Name")}
       value={bucketName}
-      required
-    />
-  );
+      required />);
+
+
 };
 
 export default AddBucketName;

@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
@@ -130,13 +130,13 @@ const CreatePathModal = ({
     <React.Fragment>
       <ModalWrapper
         modalOpen={modalOpen}
-        title="Choose or create a new path"
+        title={t("Choose or create a new path")}
         onClose={onClose}
         titleIcon={<CreateNewPathIcon />}
       >
         <FormLayout withBorders={false} containerPadding={false}>
           <Box className={"inputItem"} sx={{ display: "flex", gap: 8 }}>
-            <strong>Current Path:</strong> <br />
+            <strong>{t("Current Path:")}</strong> <br />
             <Box
               sx={{
                 textOverflow: "ellipsis",
@@ -152,10 +152,10 @@ const CreatePathModal = ({
           </Box>
           <InputBox
             value={pathUrl}
-            label={"New Folder Path"}
+            label={t("New Folder Path")}
             id={"folderPath"}
             name={"folderPath"}
-            placeholder={"Enter the new Folder Path"}
+            placeholder={t("Enter the new Folder Path")}
             onChange={inputChange}
             onKeyPress={keyPressed}
             required
@@ -165,6 +165,7 @@ const CreatePathModal = ({
               ""
             }
           />
+
           <Grid item xs={12} sx={modalStyleUtils.modalButtonBar}>
             <Button
               id={"clear"}
@@ -172,15 +173,16 @@ const CreatePathModal = ({
               color="primary"
               variant="regular"
               onClick={resetForm}
-              label={"Clear"}
+              label={t("Clear")}
             />
+
             <Button
               id={"create"}
               type="submit"
               variant="callAction"
               disabled={!isFormValid}
               onClick={createProcess}
-              label={"Create"}
+              label={t("Create")}
             />
           </Grid>
         </FormLayout>

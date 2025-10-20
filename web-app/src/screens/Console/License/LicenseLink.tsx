@@ -13,14 +13,14 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React from "react";
 
 const LicenseLink = () => {
   return (
-    <a className="link-text" href={`https://min.io/compliance?ref=con`}>
-      GNU AGPL v3
-    </a>
-  );
+    <a className="link-text" href={`https://min.io/compliance?ref=con`}>{t("GNU AGPL v3")}
+
+    </a>);
+
 };
 export default LicenseLink;

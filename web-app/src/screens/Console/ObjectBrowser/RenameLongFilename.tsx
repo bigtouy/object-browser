@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { useState } from "react";
 import { Button, EditIcon, FormLayout, Grid, InputBox, Switch } from "mds";
 import { modalStyleUtils } from "../Common/FormComponents/common/styleLibrary";
@@ -37,7 +37,7 @@ const RenameLongFileName = ({
   currentItem,
   internalPaths,
   actualInfo,
-  bucketName,
+  bucketName
 }: IRenameLongFilename) => {
   const dispatch = useAppDispatch();
 
@@ -52,26 +52,26 @@ const RenameLongFileName = ({
 
   return (
     <ModalWrapper
-      title={`Rename Download`}
+      title={t("Rename Download")}
       modalOpen={open}
       onClose={closeModal}
-      titleIcon={<EditIcon />}
-    >
-      <div>
-        The file you are trying to download has a long name.
+      titleIcon={<EditIcon />}>
+
+      <div>{t("The file you are trying to download has a long name.")}
+
+        <br />{t("This can cause issues on Windows Systems by trimming the file name after download.")}
+
+
         <br />
-        This can cause issues on Windows Systems by trimming the file name after
-        download.
-        <br />
-        <br /> We recommend to rename the file download
+        <br />{t("We recommend to rename the file download")}
       </div>
       <form
         noValidate
         autoComplete="off"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           doDownload(e);
-        }}
-      >
+        }}>
+
         <FormLayout withBorders={false} containerPadding={false}>
           <InputBox
             id="download-filename"
@@ -83,11 +83,11 @@ const RenameLongFileName = ({
             type={"text"}
             value={newFileName}
             error={
-              newFileName.length > 200 && !acceptLongName
-                ? "Filename should be less than 200 characters long."
-                : ""
-            }
-          />
+            newFileName.length > 200 && !acceptLongName ?
+            "Filename should be less than 200 characters long." :
+            ""
+            } />
+
           <Switch
             value="acceptLongName"
             id="acceptLongName"
@@ -99,8 +99,8 @@ const RenameLongFileName = ({
                 setNewFileName(currentItem);
               }
             }}
-            label={"Use Original Name"}
-          />
+            label={t("Use Original Name")} />
+
           <Grid item xs={12} sx={modalStyleUtils.modalButtonBar}>
             <Button
               id={"download-file"}
@@ -108,13 +108,13 @@ const RenameLongFileName = ({
               variant="callAction"
               color="primary"
               disabled={newFileName.length > 200 && !acceptLongName}
-              label={"Download File"}
-            />
+              label={t("Download File")} />
+
           </Grid>
         </FormLayout>
       </form>
-    </ModalWrapper>
-  );
+    </ModalWrapper>);
+
 };
 
 export default RenameLongFileName;

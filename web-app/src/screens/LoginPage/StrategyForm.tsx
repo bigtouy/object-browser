@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment } from "react";
 import {
   Button,
@@ -63,7 +63,7 @@ const StrategyForm = ({ redirectRules }: { redirectRules: RedirectRule[] }) => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch(setAccessKey(e.target.value))
                 }
-                placeholder={"Username"}
+                placeholder={t("Username")}
                 name="accessKey"
                 autoComplete="username"
                 disabled={loginSending}
@@ -82,7 +82,7 @@ const StrategyForm = ({ redirectRules }: { redirectRules: RedirectRule[] }) => {
                 id="secretKey"
                 autoComplete="current-password"
                 disabled={loginSending}
-                placeholder={"Password"}
+                placeholder={t("Password")}
                 startIcon={<LockFilledIcon />}
               />
             </Grid>
@@ -102,7 +102,7 @@ const StrategyForm = ({ redirectRules }: { redirectRules: RedirectRule[] }) => {
               color="primary"
               id="do-login"
               disabled={accessKey === "" || secretKey === "" || loginSending}
-              label={"Login"}
+              label={t("Login")}
               sx={{
                 margin: "30px 0px 8px",
                 height: 40,

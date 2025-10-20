@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -164,7 +164,7 @@ const ShareFile = ({
   return (
     <React.Fragment>
       <ModalWrapper
-        title="Share File"
+        title={t("Share File")}
         titleIcon={<ShareIcon style={{ fill: "#4CCB92" }} />}
         modalOpen={open}
         onClose={() => {
@@ -190,22 +190,34 @@ const ShareFile = ({
                 placement="right"
                 tooltip={
                   <span>
-                    You can reset your session by logging out and logging back
-                    in to the web UI. <br /> <br />
-                    You can increase the maximum configuration time by setting
-                    the MINIO_STS_DURATION environment variable on all your
-                    nodes. <br /> <br />
-                    You can use <b>mc share</b> as an alternative to this UI,
-                    where the session length does not limit the URL validity.
+                    {t(
+                      "You can reset your session by logging out and logging back in to the web UI.",
+                    )}
+                    <br /> <br />
+                    {t(
+                      "You can increase the maximum configuration time by setting the MINIO_STS_DURATION environment variable on all your nodes.",
+                    )}
+                    <br /> <br />
+                    {t("You can use")}
+                    <b>{t("mc share")}</b>
+                    {t(
+                      "as an alternative to this UI, where the session length does not limit the URL validity.",
+                    )}
                   </span>
                 }
               >
                 <span>
-                  The following URL lets you share this object without requiring
-                  a login. <br />
-                  The URL expires automatically at the earlier of your
-                  configured time ({niceTimeFromSeconds(maxShareLinkExpTimeVal)}
-                  ) or the expiration of your current web session.
+                  {t(
+                    "The following URL lets you share this object without requiring a login.",
+                  )}
+
+                  <br />
+                  {t(
+                    "The URL expires automatically at the earlier of your configured time (",
+                  )}
+
+                  {niceTimeFromSeconds(maxShareLinkExpTimeVal)}
+                  {t(") or the expiration of your current web session.")}
                 </span>
               </Tooltip>
             </Grid>
@@ -213,7 +225,7 @@ const ShareFile = ({
             <Grid item xs={12}>
               <DaysSelector
                 id="date"
-                label="Active for"
+                label={t("Active for")}
                 maxSeconds={maxShareLinkExpTimeVal}
                 onChange={debouncedDateChange}
                 entity="Link"

@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect } from "react";
 import { IAM_SCOPES } from "../../../common/SecureComponent/permissions";
 import { SecureComponent } from "../../../common/SecureComponent";
@@ -39,40 +39,40 @@ const OBHeader = ({ bucketName }: IOBHeader) => {
   const features = useSelector(selFeatures);
 
   const versionsMode = useSelector(
-    (state: AppState) => state.objectBrowser.versionsMode,
+    (state: AppState) => state.objectBrowser.versionsMode
   );
   const versionedFile = useSelector(
-    (state: AppState) => state.objectBrowser.versionedFile,
+    (state: AppState) => state.objectBrowser.versionedFile
   );
   const searchVersions = useSelector(
-    (state: AppState) => state.objectBrowser.searchVersions,
+    (state: AppState) => state.objectBrowser.searchVersions
   );
 
   const obOnly = !!features?.includes("object-browser-only");
 
-  const searchBar = (
-    <Fragment>
-      {!versionsMode ? (
-        <SecureComponent
-          scopes={[IAM_SCOPES.S3_LIST_BUCKET, IAM_SCOPES.S3_ALL_LIST_BUCKET]}
-          resource={bucketName}
-          errorProps={{ disabled: true }}
-        >
+  const searchBar =
+  <Fragment>
+      {!versionsMode ?
+    <SecureComponent
+      scopes={[IAM_SCOPES.S3_LIST_BUCKET, IAM_SCOPES.S3_ALL_LIST_BUCKET]}
+      resource={bucketName}
+      errorProps={{ disabled: true }}>
+
           <FilterObjectsSB />
-        </SecureComponent>
-      ) : (
-        <Fragment>
+        </SecureComponent> :
+
+    <Fragment>
           <SearchBox
-            placeholder={`Start typing to filter versions of ${versionedFile}`}
-            onChange={(value) => {
-              dispatch(setSearchVersions(value));
-            }}
-            value={searchVersions}
-          />
+        placeholder={`Start typing to filter versions of ${versionedFile}`}
+        onChange={(value) => {
+          dispatch(setSearchVersions(value));
+        }}
+        value={searchVersions} />
+
         </Fragment>
-      )}
-    </Fragment>
-  );
+    }
+    </Fragment>;
+
 
   useEffect(() => {
     dispatch(setHelpName("object_browser"));
@@ -81,41 +81,41 @@ const OBHeader = ({ bucketName }: IOBHeader) => {
 
   return (
     <Fragment>
-      {!obOnly ? (
-        <PageHeaderWrapper
-          label={"Object Browser"}
-          actions={
-            <Fragment>
+      {!obOnly ?
+      <PageHeaderWrapper
+        label={t("Object Browser")}
+        actions={
+        <Fragment>
               <HelpMenu />
             </Fragment>
-          }
-          middleComponent={searchBar}
-        />
-      ) : (
-        <Grid
-          container
-          sx={{
-            padding: "20px 32px 0",
-          }}
-        >
+        }
+        middleComponent={searchBar} /> :
+
+
+      <Grid
+        container
+        sx={{
+          padding: "20px 32px 0"
+        }}>
+
           <Grid>
             <AutoColorIcon marginRight={30} marginTop={10} />
           </Grid>
           <Grid
-            item
-            xs
-            sx={{
-              display: "flex",
-              gap: 10,
-            }}
-          >
+          item
+          xs
+          sx={{
+            display: "flex",
+            gap: 10
+          }}>
+
             {searchBar}
             <ObjectManagerButton />
           </Grid>
         </Grid>
-      )}
-    </Fragment>
-  );
+      }
+    </Fragment>);
+
 };
 
 export default OBHeader;

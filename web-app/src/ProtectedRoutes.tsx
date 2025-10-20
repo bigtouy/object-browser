@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -33,13 +33,13 @@ const ProtectedRoute = ({ Component }: ProtectedRouteProps) => {
   const userLoggedIn = useSelector((state: AppState) => state.system.loggedIn);
   const [componentLoading, setComponentLoading] = useState<boolean>(true);
   const sessionLoadingState = useSelector(
-    (state: AppState) => state.console.sessionLoadingState,
+    (state: AppState) => state.console.sessionLoadingState
   );
   const { pathname = "" } = useLocation();
 
   const StorePathAndRedirect = () => {
     localStorage.setItem("redirect-path", pathname);
-    return <Navigate to={{ pathname: `login` }} />;
+    return <Navigate to={{ pathname: t("login") }} />;
   };
 
   useEffect(() => {

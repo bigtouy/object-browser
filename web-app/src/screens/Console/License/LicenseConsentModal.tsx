@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { useState } from "react";
 import ModalWrapper from "../Common/ModalWrapper/ModalWrapper";
 
@@ -32,10 +32,10 @@ const LicenseConsentModal = () => {
   const theme = useTheme();
 
   const [displayForceAcknowledge, setDisplayForceAcknowledge] =
-    useState<boolean>(false);
+  useState<boolean>(false);
 
   const licenseAcknowledged = useSelector(
-    (state: AppState) => state.system.licenseAcknowledged,
+    (state: AppState) => state.system.licenseAcknowledged
   );
 
   const recordAgplConsent = () => {
@@ -51,13 +51,13 @@ const LicenseConsentModal = () => {
     <Box
       sx={{
         "& #close": {
-          display: "none",
-        },
-      }}
-    >
+          display: "none"
+        }
+      }}>
+
       <ModalWrapper
         modalOpen={!licenseAcknowledged}
-        title="License"
+        title={t("License")}
         onClose={() => {
           setDisplayForceAcknowledge(true);
         }}
@@ -67,29 +67,29 @@ const LicenseConsentModal = () => {
             width: 0,
             height: 0,
             display: "none",
-            visibility: "hidden",
-          },
-        }}
-      >
-        {displayForceAcknowledge && (
-          <Box sx={{ marginBottom: 15 }}>
+            visibility: "hidden"
+          }
+        }}>
+
+        {displayForceAcknowledge &&
+        <Box sx={{ marginBottom: 15 }}>
             <InformativeMessage
-              title={"Please read the license statement"}
-              message={"Click on the Acknowledge button to continue"}
-              variant={"warning"}
-            />
+            title={t("Please read the license statement")}
+            message={"Click on the Acknowledge button to continue"}
+            variant={"warning"} />
+
           </Box>
-        )}
+        }
         <Box
           sx={{
             display: "flex",
             flexFlow: "column",
             "& .link-text": {
               color: "#2781B0",
-              fontWeight: 600,
-            },
-          }}
-        >
+              fontWeight: 600
+            }
+          }}>
+
           <Box
             sx={{
               display: "flex",
@@ -100,53 +100,53 @@ const LicenseConsentModal = () => {
                 width: "188px",
                 height: "62px",
                 "& path": {
-                  fill: `${get(theme, "signalColors.main", "blue")}!important`,
-                },
-              },
-            }}
-          >
+                  fill: `${get(theme, "signalColors.main", "blue")}!important`
+                }
+              }
+            }}>
+
             <AGPLV3DarkLogo
               style={{
-                color: `${get(theme, "signalColors.main", "blue")}!important`,
-              }}
-            />
+                color: `${get(theme, "signalColors.main", "blue")}!important`
+              }} />
+
           </Box>
           <Box
             sx={{
               overflowY: "auto",
-              maxHeight: 500,
-            }}
-          >
+              maxHeight: 500
+            }}>
+
             <Box
               sx={{
-                marginBottom: "27px",
-              }}
-            >
-              By using this software, you acknowledge that MinIO software is
-              licensed under the <LicenseLink />, for which, the full text can
-              be found here:{" "}
+                marginBottom: "27px"
+              }}>{t("By using this software, you acknowledge that MinIO software is licensed under the")}
+
+
+              <LicenseLink />{t(", for which, the full text can be found here:")}
+              {" "}
               <a
                 href={`https://www.gnu.org/licenses/agpl-3.0.html`}
                 rel="noopener"
-                className={"link-text"}
-              >
+                className={"link-text"}>
+
                 https://www.gnu.org/licenses/agpl-3.0.html.
               </a>
             </Box>
             <Box
               sx={{
-                paddingBottom: "23px",
-              }}
-            >
-              Please review the terms carefully and ensure you are in compliance
-              with the obligations of the license. If you are not able to
-              satisfy the license obligations, we offer a commercial license
-              which is available here:{" "}
+                paddingBottom: "23px"
+              }}>{t("Please review the terms carefully and ensure you are in compliance with the obligations of the license. If you are not able to satisfy the license obligations, we offer a commercial license which is available here:")}
+
+
+
+
+              {" "}
               <a
                 href={`https://min.io/signup?ref=con`}
                 rel="noopener"
-                className={"link-text"}
-              >
+                className={"link-text"}>
+
                 https://min.io/signup.
               </a>
             </Box>
@@ -157,21 +157,21 @@ const LicenseConsentModal = () => {
               marginTop: "19px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+              justifyContent: "center"
+            }}>
+
             <Button
               id={"acknowledge-confirm"}
               type="button"
               variant="callAction"
               onClick={recordAgplConsent}
-              label={"Acknowledge"}
-            />
+              label={t("Acknowledge")} />
+
           </Box>
         </Box>
       </ModalWrapper>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default LicenseConsentModal;

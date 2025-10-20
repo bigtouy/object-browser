@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Box, InputBox, InputLabel, LinkIcon } from "mds";
@@ -177,11 +177,11 @@ const DaysSelector = ({
         <Box>
           <InputBox
             id={id}
-            className={`reverseInput removeArrows`}
+            className={t("reverseInput removeArrows")}
             type="number"
             min="0"
             max="7"
-            label="Days"
+            label={t("Days")}
             name={id}
             onChange={(e) => {
               setSelectedDays(parseInt(e.target.value));
@@ -194,11 +194,11 @@ const DaysSelector = ({
         <Box>
           <InputBox
             id={id}
-            className={`reverseInput removeArrows`}
+            className={t("reverseInput removeArrows")}
             type="number"
             min="0"
             max="23"
-            label="Hours"
+            label={t("Hours")}
             name={id}
             onChange={(e) => {
               setSelectedHours(parseInt(e.target.value));
@@ -211,11 +211,11 @@ const DaysSelector = ({
         <Box>
           <InputBox
             id={id}
-            className={`reverseInput removeArrows`}
+            className={t("reverseInput removeArrows")}
             type="number"
             min="0"
             max="59"
-            label="Minutes"
+            label={t("Minutes")}
             name={id}
             onChange={(e) => {
               setSelectedMinutes(parseInt(e.target.value));
@@ -265,7 +265,10 @@ const DaysSelector = ({
         {validDate && dateSelected ? (
           <div className={"validityText"}>
             <LinkIcon />
-            <div>{entity} will be available until:</div>{" "}
+            <div>
+              {entity}
+              {t("will be available until:")}
+            </div>{" "}
             <div className={"validTill"}>
               {DateTime.fromISO(dateSelected).toFormat(
                 "MM/dd/yyyy HH:mm:ss ZZZZ",
@@ -274,7 +277,7 @@ const DaysSelector = ({
           </div>
         ) : (
           <div className={"invalidDurationText"}>
-            Please select a valid duration.
+            {t("Please select a valid duration.")}
           </div>
         )}
       </Box>

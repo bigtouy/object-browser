@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useState } from "react";
 import { ErrorResponseHandler } from "../../../../../../common/types";
 import useApi from "../../../../Common/Hooks/useApi";
@@ -105,6 +105,7 @@ const DeleteObject = ({
                     ? "Please check retention mode and if object is WORM protected."
                     : ""
                 }`,
+
                 detailedError: "",
               }),
             );
@@ -115,6 +116,7 @@ const DeleteObject = ({
           `/api/v1/buckets/${selectedBucket}/delete-objects?all_versions=${deleteVersions}${
             bypassGovernance ? "&bypass=true" : ""
           }`,
+
           toSend,
         );
       }
@@ -126,7 +128,7 @@ const DeleteObject = ({
 
   return (
     <ConfirmDialog
-      title={`Delete Objects`}
+      title={t("Delete Objects")}
       confirmText={"Delete"}
       isOpen={deleteOpen}
       titleIcon={<ConfirmDeleteIcon />}
@@ -135,14 +137,14 @@ const DeleteObject = ({
       onClose={onClose}
       confirmationContent={
         <Fragment>
-          Are you sure you want to delete the selected {selectedObjects.length}{" "}
-          objects?{" "}
+          {t("Are you sure you want to delete the selected")}
+          {selectedObjects.length} {t("objects?")}{" "}
           {isVersionedDelete && (
             <Fragment>
               <br />
               <br />
               <Switch
-                label={"Delete All Versions"}
+                label={t("Delete All Versions")}
                 indicatorLabels={["Yes", "No"]}
                 checked={deleteVersions}
                 value={"delete_versions"}
@@ -153,6 +155,7 @@ const DeleteObject = ({
                 }}
                 description=""
               />
+
               {canBypass && deleteVersions && (
                 <Fragment>
                   <div
@@ -161,7 +164,7 @@ const DeleteObject = ({
                     }}
                   >
                     <Switch
-                      label={"Bypass Governance Mode"}
+                      label={t("Bypass Governance Mode")}
                       indicatorLabels={["Yes", "No"]}
                       checked={bypassGovernance}
                       value={"bypass_governance"}
@@ -187,12 +190,15 @@ const DeleteObject = ({
                       color: "#c83b51",
                     }}
                   >
-                    This will remove the objects as well as all of their
-                    versions, <br />
-                    This action is irreversible.
+                    {t(
+                      "This will remove the objects as well as all of their versions,",
+                    )}
+
+                    <br />
+                    {t("This action is irreversible.")}
                   </div>
                   <br />
-                  Are you sure you want to continue?
+                  {t("Are you sure you want to continue?")}
                 </Fragment>
               )}
             </Fragment>

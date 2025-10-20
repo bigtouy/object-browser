@@ -1,0 +1,22 @@
+{
+  "Button": ["label"],
+  "InputBox": ["alert", "label", "placeholder"],
+  "InputText": ["label", "placeholder"],
+  "PasswordInput": ["label", "placeholder"],
+  "SectionTitle": ["title", "subtitle"],
+  "Toolbar": ["title"],
+  "Wizard": ["title", "subtitle"],
+  "WizardStep": ["label", "description"],
+  "VerticalTabs": ["label"],
+  "FormSwitch": ["label", "helperText"],
+  "FormCheckbox": ["label", "helperText"],
+  "FormRadio": ["label", "helperText"],
+  "Notification": ["title", "message"],
+  "KeyValuePair": ["label"],
+  "SummaryTile": ["title", "caption"],
+  "DataTable": ["title", "emptyMessage", "emptyTitle"],
+  "Modal": ["title", "subtitle"],
+  "InlineTip": ["title", "message"],
+  "LoginWrapper": ["promoHeader", "promoInfo"],
+  "TwoColumnLayout": ["title", "subtitle"]
+}

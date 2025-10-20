@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { RefObject, useRef } from "react";
 import { Box, InputBox, MenuItem, SearchIcon } from "mds";
 import get from "lodash/get";
@@ -27,10 +27,10 @@ const BucketFiltering = () => {
   const ref = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const bucketFilter = useSelector(
-    (state: AppState) => state.system.filterBucketList,
+    (state: AppState) => state.system.filterBucketList
   );
   const sidebarOpen = useSelector(
-    (state: AppState) => state.system.sidebarOpen,
+    (state: AppState) => state.system.sidebarOpen
   );
 
   const expandSearchBox = () => {
@@ -40,51 +40,51 @@ const BucketFiltering = () => {
 
   return (
     <>
-      {!sidebarOpen ? (
-        <MenuItem
-          name={"Filter Bucket"}
-          icon={<SearchIcon />}
-          onClick={expandSearchBox}
-          id={`filter-buckets-expand`}
-        />
-      ) : null}
+      {!sidebarOpen ?
+      <MenuItem
+        name={"Filter Bucket"}
+        icon={<SearchIcon />}
+        onClick={expandSearchBox}
+        id={t("filter-buckets-expand")} /> :
+
+      null}
       <Box
         sx={{
           opacity: sidebarOpen ? 1 : 0,
           height: sidebarOpen ? "inherit" : "0",
-          padding: `5px 15px`,
+          padding: t("5px 15px"),
           "& .startOverlayIcon svg": {
-            fill: `${get(theme, "menu.vertical.textColor", "#FFF")}!important`,
-          },
-        }}
-      >
+            fill: `${get(theme, "menu.vertical.textColor", "#FFF")}!important`
+          }
+        }}>
+
         <InputBox
           id={"filter-buckets"}
-          placeholder={"Filter Buckets"}
+          placeholder={t("Filter Buckets")}
           sx={{
             "& input": {
               backgroundColor: "rgba(255,255,255,0.1)",
               borderColor: get(
                 theme,
                 "menu.vertical.sectionDividerColor",
-                "#0F446C",
+                "#0F446C"
               ),
               color: get(theme, "menu.vertical.textColor", "#FFF"),
               "&::placeholder": {
-                color: get(theme, "menu.vertical.textColor", "#FFF"),
-              },
-            },
+                color: get(theme, "menu.vertical.textColor", "#FFF")
+              }
+            }
           }}
           value={bucketFilter}
           onChange={(e) => {
             dispatch(setFilterBucket(e.target.value));
           }}
           startIcon={<SearchIcon />}
-          ref={ref as unknown as RefObject<HTMLInputElement>}
-        />
+          ref={ref as unknown as RefObject<HTMLInputElement>} />
+
       </Box>
-    </>
-  );
+    </>);
+
 };
 
 export default BucketFiltering;

@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 import get from "lodash/get";
 import { useSelector } from "react-redux";
@@ -430,7 +430,8 @@ const VersionsNavigator = ({
                     <span className={"detailsSpacer"}>
                       <strong>
                         {versions.length}
-                        {moreVersionsThanLimit ? "+" : ""} Version
+                        {moreVersionsThanLimit ? "+" : ""}
+                        {t("Version")}
                         {versions.length === 1 ? "" : "s"}&nbsp;&nbsp;&nbsp;
                       </strong>
                     </span>
@@ -444,7 +445,7 @@ const VersionsNavigator = ({
                 }
                 actions={
                   <Fragment>
-                    <TooltipWrapper tooltip={"Select Multiple Versions"}>
+                    <TooltipWrapper tooltip={t("Select Multiple Versions")}>
                       <Button
                         id={"select-multiple-versions"}
                         onClick={() => {
@@ -456,7 +457,7 @@ const VersionsNavigator = ({
                       />
                     </TooltipWrapper>
                     {selectEnabled && (
-                      <TooltipWrapper tooltip={"Delete Selected Versions"}>
+                      <TooltipWrapper tooltip={t("Delete Selected Versions")}>
                         <Button
                           id={"delete-multiple-versions"}
                           onClick={() => {
@@ -469,7 +470,7 @@ const VersionsNavigator = ({
                         />
                       </TooltipWrapper>
                     )}
-                    <TooltipWrapper tooltip={"Delete Non Current Versions"}>
+                    <TooltipWrapper tooltip={t("Delete Non Current Versions")}>
                       <Button
                         id={"delete-non-current"}
                         onClick={() => {
@@ -491,7 +492,7 @@ const VersionsNavigator = ({
                         },
                       ]}
                       value={sortValue}
-                      label={"Sort by"}
+                      label={t("Sort by")}
                       onChange={(newValue) => {
                         setSortValue(newValue);
                       }}

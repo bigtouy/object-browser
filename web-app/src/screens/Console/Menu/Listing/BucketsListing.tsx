@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 import { Box, BucketsIcon, HelpBox, MenuDivider, MenuSectionHeader } from "mds";
 import { AppState, useAppDispatch } from "../../../../store";
@@ -21,8 +21,8 @@ import { Bucket } from "../../../../api/consoleApi";
 import { api } from "../../../../api";
 import {
   setBucketLoadListing,
-  setErrorSnackMessage,
-} from "../../../../systemSlice";
+  setErrorSnackMessage } from
+"../../../../systemSlice";
 import { errorToHandler } from "../../../../api/errors";
 import BucketListItem from "./BucketListItem";
 import VirtualizedList from "../../Common/VirtualizedList/VirtualizedList";
@@ -36,13 +36,13 @@ const ListBuckets = () => {
   const theme = useTheme();
 
   const filterBuckets = useSelector(
-    (state: AppState) => state.system.filterBucketList,
+    (state: AppState) => state.system.filterBucketList
   );
   const loadingBuckets = useSelector(
-    (state: AppState) => state.system.loadBucketsListing,
+    (state: AppState) => state.system.loadBucketsListing
   );
   const sidebarOpen = useSelector(
-    (state: AppState) => state.system.sidebarOpen,
+    (state: AppState) => state.system.sidebarOpen
   );
 
   const [records, setRecords] = useState<Bucket[]>([]);
@@ -83,80 +83,80 @@ const ListBuckets = () => {
 
   return (
     <Fragment>
-      {!loadingBuckets && records.length !== 0 && (
-        <Fragment>
+      {!loadingBuckets && records.length !== 0 &&
+      <Fragment>
+          <Box
+          sx={{
+            display: "block",
+            "& .menuHeader": {
+              marginTop: 10
+            },
+            "& .labelContainer": {
+              textAlign: "left",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              flexGrow: 1,
+              width: 150
+            }
+          }}>
+
+            <BucketFiltering />
+            <MenuSectionHeader label={t("Buckets")} />
+            {filteredRecords.length > 0 &&
           <Box
             sx={{
               display: "block",
-              "& .menuHeader": {
-                marginTop: 10,
-              },
-              "& .labelContainer": {
-                textAlign: "left",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                flexGrow: 1,
-                width: 150,
-              },
-            }}
-          >
-            <BucketFiltering />
-            <MenuSectionHeader label={"Buckets"} />
-            {filteredRecords.length > 0 && (
-              <Box
-                sx={{
-                  display: "block",
-                  height: "calc(100vh - 380px)",
-                  "& .bucketsListing": {
-                    "&::-webkit-scrollbar": {
-                      width: 5,
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      backgroundColor: get(theme, "bulletColor", "#2781B0"),
-                    },
-                    "&::-webkit-scrollbar-thumb:hover": {
-                      backgroundColor: "#fff",
-                    },
-                  },
-                }}
-              >
+              height: "calc(100vh - 380px)",
+              "& .bucketsListing": {
+                "&::-webkit-scrollbar": {
+                  width: 5
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: get(theme, "bulletColor", "#2781B0")
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                  backgroundColor: "#fff"
+                }
+              }
+            }}>
+
                 <VirtualizedList
-                  rowRenderFunction={renderItemLine}
-                  totalItems={filteredRecords.length}
-                  defaultHeight={35}
-                />
+              rowRenderFunction={renderItemLine}
+              totalItems={filteredRecords.length}
+              defaultHeight={35} />
+
               </Box>
-            )}
+          }
             {filteredRecords.length === 0 &&
-              filterBuckets !== "" &&
-              sidebarOpen && (
-                <Box
-                  sx={{
-                    "& .helpbox-container": {
-                      backgroundColor: "transparent",
-                      color: get(theme, "menu.vertical.textColor", "#FFF"),
-                      border: 0,
-                    },
-                  }}
-                >
+          filterBuckets !== "" &&
+          sidebarOpen &&
+          <Box
+            sx={{
+              "& .helpbox-container": {
+                backgroundColor: "transparent",
+                color: get(theme, "menu.vertical.textColor", "#FFF"),
+                border: 0
+              }
+            }}>
+
                   <HelpBox
-                    iconComponent={<BucketsIcon />}
-                    title={"No Results"}
-                    help={
-                      <Box sx={{ textAlign: "center" }}>
-                        No buckets match the filtering condition
-                      </Box>
-                    }
-                  />
+              iconComponent={<BucketsIcon />}
+              title={t("No Results")}
+              help={
+              <Box sx={{ textAlign: "center" }}>{t("No buckets match the filtering condition")}
+
+              </Box>
+              } />
+
                 </Box>
-              )}
+          }
           </Box>
           <MenuDivider />
         </Fragment>
-      )}
-    </Fragment>
-  );
+      }
+    </Fragment>);
+
 };
 
 export default ListBuckets;

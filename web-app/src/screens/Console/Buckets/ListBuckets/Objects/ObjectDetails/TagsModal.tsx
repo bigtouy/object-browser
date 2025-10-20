@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useState } from "react";
 import get from "lodash/get";
 import styled from "styled-components";
@@ -151,7 +151,11 @@ const AddTagModal = ({
         width: "100%",
       }}
     >
-      Tag{plural ? "s" : ""} for: <strong>{currentItem}</strong>
+      {t("Tag")}
+
+      {plural ? "s" : ""}
+      {t("for:")}
+      <strong>{currentItem}</strong>
     </Box>
   );
 
@@ -159,7 +163,7 @@ const AddTagModal = ({
     <Fragment>
       <ModalWrapper
         modalOpen={modalOpen}
-        title={deleteEnabled ? "Delete Tag" : `Edit Tags`}
+        title={deleteEnabled ? "Delete Tag" : t("Edit Tags")}
         onClose={() => {
           onCloseAndUpdate(true);
         }}
@@ -170,7 +174,7 @@ const AddTagModal = ({
           <Fragment>
             <Grid container>
               {tagsFor(false)}
-              Are you sure you want to delete the tag{" "}
+              {t("Are you sure you want to delete the tag")}{" "}
               <DeleteTag>
                 {deleteKey} : {deleteLabel}
               </DeleteTag>{" "}
@@ -181,14 +185,15 @@ const AddTagModal = ({
                   type="button"
                   variant="regular"
                   onClick={cancelDelete}
-                  label={"Cancel"}
+                  label={t("Cancel")}
                 />
+
                 <Button
                   type="submit"
                   variant="secondary"
                   onClick={deleteTagProcess}
                   id={"deleteTag"}
-                  label={"Delete Tag"}
+                  label={t("Delete Tag")}
                 />
               </Grid>
             </Grid>
@@ -216,11 +221,12 @@ const AddTagModal = ({
                     fontWeight: "normal",
                   }}
                 >
-                  Current Tags:
+                  {t("Current Tags:")}
+
                   <br />
                   {currTagKeys.length === 0 ? (
                     <span className={"muted"}>
-                      There are no tags for this object
+                      {t("There are no tags for this object")}
                     </span>
                   ) : (
                     <Fragment />
@@ -270,29 +276,31 @@ const AddTagModal = ({
             >
               <Box>
                 <SectionTitle icon={<AddNewTagIcon />} separator={false}>
-                  Add New Tag
+                  {t("Add New Tag")}
                 </SectionTitle>
                 <FormLayout containerPadding={false} withBorders={false}>
                   <InputBox
                     value={newKey}
-                    label={"Tag Key"}
+                    label={t("Tag Key")}
                     id={"newTagKey"}
                     name={"newTagKey"}
-                    placeholder={"Enter Tag Key"}
+                    placeholder={t("Enter Tag Key")}
                     onChange={(e) => {
                       setNewKey(e.target.value);
                     }}
                   />
+
                   <InputBox
                     value={newLabel}
-                    label={"Tag Label"}
+                    label={t("Tag Label")}
                     id={"newTagLabel"}
                     name={"newTagLabel"}
-                    placeholder={"Enter Tag Label"}
+                    placeholder={t("Enter Tag Label")}
                     onChange={(e) => {
                       setNewLabel(e.target.value);
                     }}
                   />
+
                   <Grid item xs={12} sx={modalStyleUtils.modalButtonBar}>
                     <Button
                       id={"clear"}
@@ -300,8 +308,9 @@ const AddTagModal = ({
                       variant="regular"
                       color="primary"
                       onClick={resetForm}
-                      label={"Clear"}
+                      label={t("Clear")}
                     />
+
                     <Button
                       type="submit"
                       variant="callAction"
@@ -312,7 +321,7 @@ const AddTagModal = ({
                       }
                       onClick={addTagProcess}
                       id="saveTag"
-                      label={"Save"}
+                      label={t("Save")}
                     />
                   </Grid>
                 </FormLayout>

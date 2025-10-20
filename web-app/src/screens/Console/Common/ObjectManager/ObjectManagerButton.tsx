@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
@@ -37,27 +37,27 @@ const IndicatorContainer = styled.div(({ theme }) => ({
     height: 10,
     top: "50%",
     left: "50%",
-    transitionDuration: "0.2s",
+    transitionDuration: "0.2s"
   },
   "&.newItem": {
     color: get(theme, "signalColors.info", "#2781B0"),
     "& svg": {
       width: 15,
-      height: 15,
-    },
-  },
+      height: 15
+    }
+  }
 }));
 
 const ObjectManagerButton = () => {
   const dispatch = useAppDispatch();
   const managerObjects = useSelector(
-    (state: AppState) => state.objectBrowser.objectManager.objectsToManage,
+    (state: AppState) => state.objectBrowser.objectManager.objectsToManage
   );
   const newItems = useSelector(
-    (state: AppState) => state.objectBrowser.objectManager.newItems,
+    (state: AppState) => state.objectBrowser.objectManager.newItems
   );
   const managerOpen = useSelector(
-    (state: AppState) => state.objectBrowser.objectManager.managerOpen,
+    (state: AppState) => state.objectBrowser.objectManager.managerOpen
   );
 
   const [newObject, setNewObject] = useState<boolean>(false);
@@ -73,33 +73,33 @@ const ObjectManagerButton = () => {
 
   return (
     <Fragment>
-      {managerObjects && managerObjects.length > 0 && (
-        <Button
-          aria-label="Refresh List"
-          onClick={() => {
-            dispatch(toggleList());
-          }}
-          icon={
-            <Fragment>
+      {managerObjects && managerObjects.length > 0 &&
+      <Button
+        aria-label={t("Refresh List")}
+        onClick={() => {
+          dispatch(toggleList());
+        }}
+        icon={
+        <Fragment>
               <IndicatorContainer
-                className={newObject ? "newItem" : ""}
-                style={{
-                  opacity: managerObjects.length > 0 && newItems ? 1 : 0,
-                }}
-              >
+            className={newObject ? "newItem" : ""}
+            style={{
+              opacity: managerObjects.length > 0 && newItems ? 1 : 0
+            }}>
+
                 <CircleIcon />
               </IndicatorContainer>
               <ObjectManagerIcon
-                style={{ width: 20, height: 20, marginTop: -2 }}
-              />
+            style={{ width: 20, height: 20, marginTop: -2 }} />
+
             </Fragment>
-          }
-          id="object-manager-toggle"
-          style={{ position: "relative", padding: "0 10px" }}
-        />
-      )}
-    </Fragment>
-  );
+        }
+        id="object-manager-toggle"
+        style={{ position: "relative", padding: "0 10px" }} />
+
+      }
+    </Fragment>);
+
 };
 
 export default ObjectManagerButton;

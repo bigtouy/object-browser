@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React from "react";
 import { ProgressBar, ProgressBarProps } from "mds";
 
@@ -29,14 +29,14 @@ interface IProgressBarWrapper {
 }
 
 function LinearProgressWithLabel(
-  props: { error: boolean; cancelled: boolean } & ProgressBarProps,
-) {
+props: {error: boolean;cancelled: boolean;} & ProgressBarProps)
+{
   let label = "";
 
   if (props.error) {
     label = `Error: ${props.notificationLabel || ""}`;
   } else if (props.cancelled) {
-    label = `Cancelled`;
+    label = t("Cancelled");
   }
 
   return (
@@ -45,9 +45,9 @@ function LinearProgressWithLabel(
       value={props.value}
       color={props.color}
       progressLabel
-      notificationLabel={label}
-    />
-  );
+      notificationLabel={label} />);
+
+
 }
 
 const ProgressBarWrapper = ({
@@ -58,7 +58,7 @@ const ProgressBarWrapper = ({
   size = "regular",
   error,
   cancelled,
-  notificationLabel,
+  notificationLabel
 }: IProgressBarWrapper) => {
   let color: any;
   if (error) {
@@ -72,24 +72,24 @@ const ProgressBarWrapper = ({
   }
   const propsComponent: ProgressBarProps = {
     variant:
-      indeterminate && !ready && !cancelled ? "indeterminate" : "determinate",
+    indeterminate && !ready && !cancelled ? "indeterminate" : "determinate",
     value: ready && !error ? 100 : value,
     color: color,
-    notificationLabel: notificationLabel || "",
+    notificationLabel: notificationLabel || ""
   };
   if (withLabel) {
     return (
       <LinearProgressWithLabel
         {...propsComponent}
         error={!!error}
-        cancelled={!!cancelled}
-      />
-    );
+        cancelled={!!cancelled} />);
+
+
   }
   if (size === "small") {
     return (
-      <ProgressBar {...propsComponent} sx={{ height: 6, borderRadius: 6 }} />
-    );
+      <ProgressBar {...propsComponent} sx={{ height: 6, borderRadius: 6 }} />);
+
   }
 
   return <ProgressBar {...propsComponent} />;

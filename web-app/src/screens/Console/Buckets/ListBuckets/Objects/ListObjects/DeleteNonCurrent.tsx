@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 
 import { ConfirmDeleteIcon, Switch, Grid, InputBox } from "mds";
@@ -88,7 +88,7 @@ const DeleteNonCurrentVersions = ({
 
   return (
     <ConfirmDialog
-      title={`Delete Non-Current versions`}
+      title={t("Delete Non-Current versions")}
       confirmText={"Delete"}
       isOpen={deleteOpen}
       titleIcon={<ConfirmDeleteIcon />}
@@ -100,7 +100,9 @@ const DeleteNonCurrentVersions = ({
       }}
       confirmationContent={
         <Fragment>
-          Are you sure you want to delete all the non-current versions for:{" "}
+          {t(
+            "Are you sure you want to delete all the non-current versions for:",
+          )}{" "}
           <b>{selectedObject}</b>? <br />
           {canBypass && (
             <Fragment>
@@ -110,7 +112,7 @@ const DeleteNonCurrentVersions = ({
                 }}
               >
                 <Switch
-                  label={"Bypass Governance Mode"}
+                  label={t("Bypass Governance Mode")}
                   indicatorLabels={["Yes", "No"]}
                   checked={bypassGovernance}
                   value={"bypass_governance"}
@@ -125,7 +127,9 @@ const DeleteNonCurrentVersions = ({
             </Fragment>
           )}
           <br />
-          To continue please type <b>YES, PROCEED</b> in the box.
+          {t("To continue please type")}
+          <b>{t("YES, PROCEED")}</b>
+          {t("in the box.")}
           <br />
           <br />
           <Grid item xs={12}>

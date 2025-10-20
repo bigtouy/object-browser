@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import {
@@ -100,7 +100,7 @@ const RewindEnable = ({
           value={dateSelected}
           onChange={(dateTime) => (dateTime ? setDateSelected(dateTime) : null)}
           id="rewind-selector"
-          label="Rewind to"
+          label={t("Rewind to")}
           timeFormat={"24h"}
           secondsSelector={false}
           disabled={!rewindEnableButton}
@@ -115,7 +115,7 @@ const RewindEnable = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setRewindEnableButton(e.target.checked);
             }}
-            label={"Current Status"}
+            label={t("Current Status")}
             indicatorLabels={["Enabled", "Disabled"]}
           />
         )}

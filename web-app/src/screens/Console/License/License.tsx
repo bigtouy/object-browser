@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect } from "react";
 import { PageLayout } from "mds";
 import LicensePlans from "./LicensePlans";
@@ -30,12 +30,12 @@ const License = () => {
 
   return (
     <Fragment>
-      <PageHeaderWrapper label="Community and Enterprise Editions" />
+      <PageHeaderWrapper label={t("Community and Enterprise Editions")} />
       <PageLayout>
         <LicensePlans />
       </PageLayout>
-    </Fragment>
-  );
+    </Fragment>);
+
 };
 
 export default License;

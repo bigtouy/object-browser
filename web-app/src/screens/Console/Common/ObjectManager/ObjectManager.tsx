@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../../../../store";
@@ -21,114 +21,114 @@ import { Box, RemoveAllIcon, IconButton, Tooltip } from "mds";
 import ObjectHandled from "./ObjectHandled";
 import {
   cleanList,
-  deleteFromList,
-} from "../../ObjectBrowser/objectBrowserSlice";
+  deleteFromList } from
+"../../ObjectBrowser/objectBrowserSlice";
 import VirtualizedList from "../VirtualizedList/VirtualizedList";
 
 const ObjectManager = () => {
   const dispatch = useAppDispatch();
 
   const objects = useSelector(
-    (state: AppState) => state.objectBrowser.objectManager.objectsToManage,
+    (state: AppState) => state.objectBrowser.objectManager.objectsToManage
   );
   const managerOpen = useSelector(
-    (state: AppState) => state.objectBrowser.objectManager.managerOpen,
+    (state: AppState) => state.objectBrowser.objectManager.managerOpen
   );
   const anonymousMode = useSelector(
-    (state: AppState) => state.system.anonymousMode,
+    (state: AppState) => state.system.anonymousMode
   );
 
   function renderObject(index: number) {
     return (
       <ObjectHandled
         objectToDisplay={objects[index]}
-        deleteFromList={(instanceID) => dispatch(deleteFromList(instanceID))}
-      />
-    );
+        deleteFromList={(instanceID) => dispatch(deleteFromList(instanceID))} />);
+
+
   }
 
   return (
     <Fragment>
-      {managerOpen && (
-        <Box
-          sx={{
-            boxShadow: "rgba(0, 0, 0, 0.08) 0 2px 10px",
-            position: "absolute",
-            right: 20,
-            top: 62,
-            width: 400,
-            overflowY: "hidden",
-            overflowX: "hidden",
-            borderRadius: 3,
-            zIndex: 1000,
-            padding: 0,
-            height: 0,
-            transitionDuration: "0.3s",
-            visibility: "hidden",
-            "&.open": {
-              visibility: "visible",
-              minHeight: 400,
-            },
-            "&.downloadContainerAnonymous": {
-              top: 70,
-            },
-          }}
-          className={`${anonymousMode ? "downloadContainerAnonymous" : ""} ${
-            managerOpen ? "open" : ""
-          }`}
-          useBackground
-          withBorders
-        >
+      {managerOpen &&
+      <Box
+        sx={{
+          boxShadow: "rgba(0, 0, 0, 0.08) 0 2px 10px",
+          position: "absolute",
+          right: 20,
+          top: 62,
+          width: 400,
+          overflowY: "hidden",
+          overflowX: "hidden",
+          borderRadius: 3,
+          zIndex: 1000,
+          padding: 0,
+          height: 0,
+          transitionDuration: "0.3s",
+          visibility: "hidden",
+          "&.open": {
+            visibility: "visible",
+            minHeight: 400
+          },
+          "&.downloadContainerAnonymous": {
+            top: 70
+          }
+        }}
+        className={`${anonymousMode ? "downloadContainerAnonymous" : ""} ${
+        managerOpen ? "open" : ""}`
+        }
+        useBackground
+        withBorders>
+
           <Box
-            sx={{
-              position: "absolute",
-              right: 28,
-              top: 25,
-            }}
-          >
-            <Tooltip tooltip={"Clean Completed Objects"} placement="bottom">
+          sx={{
+            position: "absolute",
+            right: 28,
+            top: 25
+          }}>
+
+            <Tooltip tooltip={t("Clean Completed Objects")} placement="bottom">
               <IconButton
-                aria-label={"Clear Completed List"}
-                onClick={() => dispatch(cleanList())}
-              >
+              aria-label={t("Clear Completed List")}
+              onClick={() => dispatch(cleanList())}>
+
                 <RemoveAllIcon />
               </IconButton>
             </Tooltip>
           </Box>
           <Box
-            sx={{
-              fontSize: 16,
-              fontWeight: "bold",
-              textAlign: "left",
-              paddingBottom: 20,
-              borderBottom: "#E2E2E2 1px solid",
-              margin: "25px 30px 5px 30px",
-            }}
-          >
-            Downloads / Uploads
-          </Box>
+          sx={{
+            fontSize: 16,
+            fontWeight: "bold",
+            textAlign: "left",
+            paddingBottom: 20,
+            borderBottom: "#E2E2E2 1px solid",
+            margin: "25px 30px 5px 30px"
+          }}>{t("Downloads / Uploads")}
+
+
+        </Box>
           <Box
-            sx={{
-              overflowY: "auto",
-              overflowX: "hidden",
-              minHeight: 250,
-              maxHeight: 335,
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          sx={{
+            overflowY: "auto",
+            overflowX: "hidden",
+            minHeight: 250,
+            maxHeight: 335,
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column"
+          }}>
+
             <VirtualizedList
-              rowRenderFunction={renderObject}
-              totalItems={objects.length}
-              defaultHeight={110}
-            />
+            rowRenderFunction={renderObject}
+            totalItems={objects.length}
+            defaultHeight={110} />
+
           </Box>
         </Box>
-      )}
-    </Fragment>
-  );
+      }
+    </Fragment>);
+
 };
 
 export default ObjectManager;

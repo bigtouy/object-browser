@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
 import get from "lodash/get";
 import { useSelector } from "react-redux";
@@ -287,6 +287,7 @@ const ObjectDetailPanel = ({
     currentItem,
     [bucketName, actualInfo.name].join("/"),
   ];
+
   const canSetTags = hasPermission(objectResources, [
     IAM_SCOPES.S3_PUT_OBJECT_TAGGING,
     IAM_SCOPES.S3_PUT_ACTIONS,
@@ -371,6 +372,7 @@ const ObjectDetailPanel = ({
               IAM_SCOPES.S3_GET_ACTIONS,
               IAM_SCOPES.S3_PUT_ACTIONS,
             ],
+
             "set Tags on this object",
           ),
     },
@@ -401,6 +403,7 @@ const ObjectDetailPanel = ({
               IAM_SCOPES.S3_GET_ACTIONS,
               IAM_SCOPES.S3_PUT_ACTIONS,
             ],
+
             "display all versions of this object",
           ),
     },
@@ -507,6 +510,7 @@ const ObjectDetailPanel = ({
             }
             items={multiActionButtons}
           />
+
           <TooltipWrapper
             tooltip={
               canDelete
@@ -555,21 +559,21 @@ const ObjectDetailPanel = ({
               </SecureComponent>
             </Grid>
           </TooltipWrapper>
-          <SimpleHeader icon={<ObjectInfoIcon />} label={"Object Info"} />
+          <SimpleHeader icon={<ObjectInfoIcon />} label={t("Object Info")} />
           <Box className={"detailContainer"}>
-            <strong>Name:</strong>
+            <strong>{t("Name:")}</strong>
             <br />
             <div style={{ overflowWrap: "break-word" }}>{objectName}</div>
           </Box>
           {selectedVersion !== "" && (
             <Box className={"detailContainer"}>
-              <strong>Version ID:</strong>
+              <strong>{t("Version ID:")}</strong>
               <br />
               {selectedVersion}
             </Box>
           )}
           <Box className={"detailContainer"}>
-            <strong>Size:</strong>
+            <strong>{t("Size:")}</strong>
             <br />
             {niceBytes(`${actualInfo.size || "0"}`)}
           </Box>
@@ -577,10 +581,11 @@ const ObjectDetailPanel = ({
             actualInfo.version_id !== "null" &&
             selectedVersion === "" && (
               <Box className={"detailContainer"}>
-                <strong>Versions:</strong>
+                <strong>{t("Versions:")}</strong>
                 <br />
                 {versions.length}
-                {moreVersionsThanLimit ? "+" : ""} version
+                {moreVersionsThanLimit ? "+" : ""}
+                {t("version")}
                 {versions.length !== 1 ? "s" : ""},{" "}
                 {niceBytesInt(totalVersionsSize)}
                 {moreVersionsThanLimit ? "+" : ""}
@@ -588,18 +593,18 @@ const ObjectDetailPanel = ({
             )}
           {selectedVersion === "" && (
             <Box className={"detailContainer"}>
-              <strong>Last Modified:</strong>
+              <strong>{t("Last Modified:")}</strong>
               <br />
               {calculateLastModifyTime(actualInfo.last_modified || "")}
             </Box>
           )}
           <Box className={"detailContainer"}>
-            <strong>ETAG:</strong>
+            <strong>{t("ETAG:")}</strong>
             <br />
             {actualInfo.etag || "N/A"}
           </Box>
           <Box className={"detailContainer"}>
-            <strong>Tags:</strong>
+            <strong>{t("Tags:")}</strong>
             <br />
             {tagKeys.length === 0
               ? "N/A"
@@ -621,7 +626,7 @@ const ObjectDetailPanel = ({
               resource={bucketName}
             >
               <Fragment>
-                <strong>Legal Hold:</strong>
+                <strong>{t("Legal Hold:")}</strong>
                 <br />
                 {actualInfo.legal_hold_status ? "On" : "Off"}
               </Fragment>
@@ -636,7 +641,7 @@ const ObjectDetailPanel = ({
               resource={bucketName}
             >
               <Fragment>
-                <strong>Retention Policy:</strong>
+                <strong>{t("Retention Policy:")}</strong>
                 <br />
                 <span className={"capitalizeFirst"}>
                   {actualInfo.version_id && actualInfo.version_id !== "null" ? (
@@ -658,7 +663,7 @@ const ObjectDetailPanel = ({
           </Box>
           {!actualInfo.is_delete_marker && (
             <Fragment>
-              <SimpleHeader label={"Metadata"} icon={<MetadataIcon />} />
+              <SimpleHeader label={t("Metadata")} icon={<MetadataIcon />} />
               <Box className={"detailContainer"}>
                 {actualInfo && metaData ? (
                   <ObjectMetaData metaData={metaData} />
